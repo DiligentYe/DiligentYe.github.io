@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+  
+  <body>
+    {%- include header.html -%}
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    <script>
+      var links = document.getElementsByClassName('post-link');
+      var rightIframe = document.getElementById('rightIframe');
+      for(var i = 0; i < links.length; ++i) {
+        links[i].addEventListener('click', function (e) {
+          var target = e.target;
+          var url = target.dataset.url;  
+          rightIframe.src = url;
+        })
+      }
+    </script>
+  </body>
+
+</html>

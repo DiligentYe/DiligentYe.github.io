@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+  
+  {%- if site.posts.size > 0 -%}
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      <li>
+        {%- assign date_format = site.minima.date_format | default: "%Y-%m-%d" -%}
+        <a class="post-link" data-url="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+      </li>
+      {%- endfor -%}
+    </ul>
+    <div class="iframeContainer">
+      <iframe src="/jekyll/update/2018/09/26/welcome-to-jekyll.html" id="rightIframe" class="rightIframe"></iframe>
+    </div>
+    <!-- <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p> -->
+  {%- endif -%}
+
+</div>

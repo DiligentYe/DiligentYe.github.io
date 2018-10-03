@@ -7,6 +7,10 @@ dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0; }
 
+html,
+body {
+  height: 100%; }
+
 /**
  * Basic styling
  */
@@ -24,6 +28,9 @@ body {
   min-height: 100vh;
   flex-direction: column; }
 
+body {
+  overflow: hidden; }
+
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
@@ -31,7 +38,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 .highlight {
-  margin-bottom: 15px; }
+  margin-bottom: 7.5px; }
 
 /**
  * `main` element
@@ -60,7 +67,7 @@ figcaption {
  * Lists
  */
 ul, ol {
-  margin-left: 30px; }
+  margin-left: 15px; }
 
 li > ul,
 li > ol {
@@ -73,13 +80,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
 /**
- * Links
+ * Linkspost-header
  */
 a {
-  color: #2a7ae2;
+  color: #10aec2;
   text-decoration: none; }
   a:visited {
-    color: #1756a9; }
+    color: #0a6f7b; }
   a:hover {
     color: #111;
     text-decoration: underline; }
@@ -94,7 +101,7 @@ a {
 blockquote {
   color: #828282;
   border-left: 4px solid #e8e8e8;
-  padding-left: 15px;
+  padding-left: 7.5px;
   font-size: 18px;
   letter-spacing: -1px;
   font-style: italic; }
@@ -126,23 +133,13 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 30px;
-  padding-left: 30px; }
-  @media screen and (max-width: 800px) {
-    .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
-      padding-right: 15px;
-      padding-left: 15px; } }
+  height: 100%;
+  width: 100%; }
 
 /**
  * Clearfix
  */
-.wrapper:after, .footer-col-wrapper:after {
+.footer-col-wrapper:after {
   content: "";
   display: table;
   clear: both; }
@@ -154,8 +151,8 @@ pre {
   width: 16px;
   height: 16px;
   display: inline-block;
-  fill: #828282;
-  padding-right: 5px;
+  fill: #fff;
+  padding-right: 30px;
   vertical-align: text-top; }
 
 .social-media-list li + li {
@@ -165,7 +162,7 @@ pre {
  * Tables
  */
 table {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   width: 100%;
   text-align: left;
   color: #3f3f3f;
@@ -174,7 +171,7 @@ table {
   table tr:nth-child(even) {
     background-color: #f7f7f7; }
   table th, table td {
-    padding: 10px 15px; }
+    padding: 5px 7.5px; }
   table th {
     background-color: #f0f0f0;
     border: 1px solid #dedede;
@@ -186,20 +183,23 @@ table {
  * Site header
  */
 .site-header {
-  border-top: 5px solid #424242;
   border-bottom: 1px solid #e8e8e8;
-  min-height: 55.95px;
-  position: relative; }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #10aec2; }
 
 .site-title {
   font-size: 26px;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 54px;
   letter-spacing: -1px;
   margin-bottom: 0;
+  margin-left: 30px;
   float: left; }
   .site-title, .site-title:visited {
-    color: #424242; }
+    color: #fff; }
 
 .site-nav {
   float: right;
@@ -217,7 +217,7 @@ table {
     .site-nav {
       position: absolute;
       top: 9px;
-      right: 15px;
+      right: 7.5px;
       background-color: #fdfdfd;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
@@ -253,63 +253,100 @@ table {
           margin-right: 0; } }
 
 /**
+ * body
+ */
+.home {
+  height: 100%;
+  width: 100%; }
+
+.post-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 270px;
+  padding: 0 15px;
+  padding-top: 69px;
+  border-right: 1px solid #10aec2;
+  overflow: scroll; }
+
+.iframeContainer {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding-left: 330px;
+  padding-top: 69px; }
+
+.rightIframe {
+  border: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-right: 30px; }
+
+/**
  * Site footer
  */
 .site-footer {
   border-top: 1px solid #e8e8e8;
-  padding: 30px 0; }
+  padding: 15px 0; }
 
 .footer-heading {
   font-size: 18px;
-  margin-bottom: 15px; }
+  margin-bottom: 7.5px; }
 
 .contact-list,
 .social-media-list {
   list-style: none;
-  margin-left: 0; }
+  margin-left: 0;
+  margin-bottom: 0; }
 
 .footer-col-wrapper {
   font-size: 15px;
   color: #828282;
-  margin-left: -15px; }
+  margin-left: -7.5px; }
 
 .footer-col {
   float: left;
-  margin-bottom: 15px;
-  padding-left: 15px; }
+  margin-bottom: 7.5px;
+  padding-left: 7.5px; }
 
 .footer-col-1 {
-  width: -webkit-calc(35% - (30px / 2));
-  width: calc(35% - (30px / 2)); }
+  width: -webkit-calc(35% - (15px / 2));
+  width: calc(35% - (15px / 2)); }
 
 .footer-col-2 {
-  width: -webkit-calc(20% - (30px / 2));
-  width: calc(20% - (30px / 2)); }
+  width: -webkit-calc(20% - (15px / 2));
+  width: calc(20% - (15px / 2)); }
 
 .footer-col-3 {
-  width: -webkit-calc(45% - (30px / 2));
-  width: calc(45% - (30px / 2)); }
+  width: -webkit-calc(45% - (15px / 2));
+  width: calc(45% - (15px / 2)); }
 
 @media screen and (max-width: 800px) {
   .footer-col-1,
   .footer-col-2 {
-    width: -webkit-calc(50% - (30px / 2));
-    width: calc(50% - (30px / 2)); }
+    width: -webkit-calc(50% - (15px / 2));
+    width: calc(50% - (15px / 2)); }
 
   .footer-col-3 {
-    width: -webkit-calc(100% - (30px / 2));
-    width: calc(100% - (30px / 2)); } }
+    width: -webkit-calc(100% - (15px / 2));
+    width: calc(100% - (15px / 2)); } }
 @media screen and (max-width: 600px) {
   .footer-col {
     float: none;
-    width: -webkit-calc(100% - (30px / 2));
-    width: calc(100% - (30px / 2)); } }
+    width: -webkit-calc(100% - (15px / 2));
+    width: calc(100% - (15px / 2)); } }
 /**
  * Page content
  */
 .page-content {
-  padding: 30px 0;
-  flex: 1; }
+  overflow: hidden;
+  box-sizing: padding-box;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  overflow: scroll; }
 
 .page-heading {
   font-size: 32px; }
@@ -324,18 +361,23 @@ table {
     margin-bottom: 30px; }
 
 .post-meta {
-  font-size: 14px;
-  color: #828282; }
+  font-size: 9.6px;
+  color: #828282;
+  float: right; }
 
 .post-link {
   display: block;
-  font-size: 24px; }
+  font-size: 9.6px;
+  width: 190px;
+  float: left;
+  text-decoration: none;
+  color: #000; }
 
 /**
  * Posts
  */
 .post-header {
-  margin-bottom: 30px; }
+  margin-bottom: 15px; }
 
 .post-title {
   font-size: 42px;
@@ -346,7 +388,7 @@ table {
       font-size: 36px; } }
 
 .post-content {
-  margin-bottom: 30px; }
+  margin-bottom: 15px; }
   .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {
