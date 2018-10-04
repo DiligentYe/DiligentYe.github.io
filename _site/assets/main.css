@@ -284,6 +284,16 @@ table {
   box-sizing: border-box;
   padding-right: 30px; }
 
+.post-header .post-meta {
+  float: left;
+  margin-top: 15px;
+  margin-bottom: 30px; }
+
+.post-header {
+  content: '';
+  display: block;
+  clear: both; }
+
 /**
  * Site footer
  */
@@ -388,7 +398,8 @@ table {
       font-size: 36px; } }
 
 .post-content {
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  clear: left; }
   .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {

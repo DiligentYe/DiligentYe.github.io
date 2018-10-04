@@ -140,6 +140,18 @@
   padding-right: $spacing-unit * 2;
 }
 
+.post-header .post-meta {
+  float: left;
+  margin-top: $spacing-unit;
+  margin-bottom: $spacing-unit * 2;
+}
+
+.post-header {
+  content: '';
+  display: block;
+  clear: both;
+}
+
 /**
  * Site footer
  */
@@ -276,6 +288,7 @@
 
 .post-content {
   margin-bottom: $spacing-unit;
+  clear: left;
 
   h2 {
     @include relative-font-size(2);

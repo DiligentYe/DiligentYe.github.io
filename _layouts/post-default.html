@@ -9,6 +9,22 @@
         {{ content }}
       </div>
     </main>
+
+    <div id="gitmentContainer">
+    </div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script> 
+      var gitment = new Gitment({ 
+        owner: 'DiligentYe', 
+        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git', 
+        oauth: {
+          client_id: 'd5077238dd5d95919bc7', 
+          client_secret: '7c7f4a3c71cdc015bed576ddd2a6595228b754c1', 
+        }
+      }); 
+      gitment.render('gitmentContainer'); 
+    </script>
   </body>
 
 </html>
