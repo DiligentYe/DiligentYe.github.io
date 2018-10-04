@@ -6,3 +6,5 @@ categories: jekyll update
 ---
 
 #### test
+
+[baidu](www.baidu.com)
