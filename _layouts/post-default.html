@@ -8,22 +8,21 @@
       <div class="wrapper">
         {{ content }}
       </div>
+      <div id="gitalk-container"></div>
     </main>
 
-    <div id="gitmentContainer">
-    </div>
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
     <script> 
-      var gitment = new Gitment({ 
-        owner: 'DiligentYe', 
-        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git', 
-        oauth: {
-          client_id: 'd5077238dd5d95919bc7', 
-          client_secret: '7c7f4a3c71cdc015bed576ddd2a6595228b754c1', 
-        }
-      }); 
-      gitment.render('gitmentContainer'); 
+      const gitalk = new Gitalk({
+        clientID: '4567a3c4249760e03c45',
+        clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53',
+        repo: 'DiligentYe.github.io',
+        owner: 'DiligentYe',
+        admin: ['DiligentYe'],
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
     </script>
   </body>
 

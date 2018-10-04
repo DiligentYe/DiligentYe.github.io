@@ -17,7 +17,9 @@
 <script type="application/ld+json">
 {"url":"http://localhost:4000/jekyll/update/2018/09/26/test.html","headline":"Welcome to Jekyll!Welcome to Jekyll!Welcome to Jekyll!Welcome to Jekyll!","dateModified":"2018-09-26T21:51:29+08:00","datePublished":"2018-09-26T21:51:29+08:00","description":"test","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2018/09/26/test.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /></head>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
 <body>
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
@@ -36,22 +38,21 @@
 </article>
 
       </div>
+      <div id="gitalk-container"></div>
     </main>
 
-    <div id="gitmentContainer">
-    </div>
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
     <script> 
-      var gitment = new Gitment({ 
-        owner: 'DiligentYe', 
-        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git', 
-        oauth: {
-          client_id: 'd5077238dd5d95919bc7', 
-          client_secret: '7c7f4a3c71cdc015bed576ddd2a6595228b754c1', 
-        }
-      }); 
-      gitment.render('gitmentContainer'); 
+      const gitalk = new Gitalk({
+        clientID: '4567a3c4249760e03c45',
+        clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53',
+        repo: 'DiligentYe.github.io',
+        owner: 'DiligentYe',
+        admin: ['DiligentYe'],
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
     </script>
   </body>
 
