@@ -83,10 +83,10 @@ h1, h2, h3, h4, h5, h6 {
  * Linkspost-header
  */
 a {
-  color: #10aec2;
+  color: #6190e8;
   text-decoration: none; }
   a:visited {
-    color: #0a6f7b; }
+    color: #2062dc; }
   a:hover {
     color: #111;
     text-decoration: underline; }
@@ -188,7 +188,7 @@ table {
   top: 0;
   left: 0;
   width: 100%;
-  background: #10aec2; }
+  background: #6190e8; }
 
 .site-title {
   font-size: 26px;
@@ -267,7 +267,7 @@ table {
   width: 270px;
   padding: 0 15px;
   padding-top: 69px;
-  border-right: 1px solid #10aec2;
+  border-right: 1px solid #6190e8;
   overflow: scroll; }
 
 .iframeContainer {
