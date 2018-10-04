@@ -16,7 +16,8 @@
         clientSecret: '119c6b5950044193a8a3eed937012499aaac34fa',
         repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git',
         owner: 'DiligentYe',
-        admin: 'DiligentYe',
+        admin: ['DiligentYe'],
+        id: decodeURI(window.location.pathname),
       })
 
       gitalk.render('gitalk-container')
