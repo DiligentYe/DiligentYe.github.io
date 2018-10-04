@@ -92,10 +92,10 @@
   </div><a class="u-url" href="/jekyll/update/2018/09/26/welcome-to-jekyll.html" hidden></a>
 </article>
 
+        <div id="gitalk-container"></div>
       </div>
       <div id="gitalk-container"></div>
     </main>
-
     <script> 
       const gitalk = new Gitalk({
         clientID: '4567a3c4249760e03c45',
@@ -103,7 +103,7 @@
         repo: 'DiligentYe.github.io',
         owner: 'DiligentYe',
         admin: ['DiligentYe'],
-        id: location.pathname,      // Ensure uniqueness and length less than 50
+        id: decodeURI(window.location.pathname),     // Ensure uniqueness and length less than 50
         distractionFreeMode: false  // Facebook-like distraction free mode
       })
 
