@@ -7,20 +7,19 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         {{ content }}
-        <div id="gitmentContainer">
-        </div>
+        <div id="gitalk-container"></div>
       </div>
     </main>
     <script> 
-      var gitment = new Gitment({ 
-        owner: 'DiligentYe', 
-        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git', 
-        oauth: {
-          client_id: 'f020fbf702542dd84b05', 
-          client_secret: '119c6b5950044193a8a3eed937012499aaac34fa', 
-        }
-      }); 
-      gitment.render('gitmentContainer'); 
+      const gitalk = new Gitalk({
+        clientID: 'f020fbf702542dd84b05',
+        clientSecret: '119c6b5950044193a8a3eed937012499aaac34fa',
+        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git',
+        owner: 'DiligentYe',
+        admin: 'DiligentYe',
+      })
+
+      gitalk.render('gitalk-container')
     </script>
   </body>
 

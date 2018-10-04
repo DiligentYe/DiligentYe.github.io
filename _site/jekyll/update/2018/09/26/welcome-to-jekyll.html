@@ -17,8 +17,8 @@
 <script type="application/ld+json">
 {"url":"http://localhost:4000/jekyll/update/2018/09/26/welcome-to-jekyll.html","headline":"Welcome to Jekyll!","dateModified":"2018-09-26T21:51:29+08:00","datePublished":"2018-09-26T21:51:29+08:00","description":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2018/09/26/welcome-to-jekyll.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 </head>
 <body>
     <main class="page-content" aria-label="Content">
@@ -92,20 +92,19 @@
   </div><a class="u-url" href="/jekyll/update/2018/09/26/welcome-to-jekyll.html" hidden></a>
 </article>
 
-        <div id="gitmentContainer">
-        </div>
+        <div id="gitalk-container"></div>
       </div>
     </main>
     <script> 
-      var gitment = new Gitment({ 
-        owner: 'DiligentYe', 
-        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git', 
-        oauth: {
-          client_id: 'f020fbf702542dd84b05', 
-          client_secret: '119c6b5950044193a8a3eed937012499aaac34fa', 
-        }
-      }); 
-      gitment.render('gitmentContainer'); 
+      const gitalk = new Gitalk({
+        clientID: 'f020fbf702542dd84b05',
+        clientSecret: '119c6b5950044193a8a3eed937012499aaac34fa',
+        repo: 'https://github.com/DiligentYe/DiligentYe.github.io.git',
+        owner: 'DiligentYe',
+        admin: 'DiligentYe',
+      })
+
+      gitalk.render('gitalk-container')
     </script>
   </body>
 
