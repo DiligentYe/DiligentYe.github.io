@@ -265,7 +265,7 @@ react-router提供了web和Native两个版本，当在浏览器中使用时，�
     const gitalk = new Gitalk({
       clientID: '4567a3c4249760e03c45',
       clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
-      id: window.location.pathname, 
+      id: encodeURI(window.location.pathname), 
       repo: 'DiligentYe.github.io', 
       owner: 'DiligentYe', 
       admin: 'DiligentYe', 
