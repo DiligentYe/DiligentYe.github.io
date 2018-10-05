@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Nodejs中的事件循环 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Nodejs中的事件循环" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="看到很多文件介绍关于Node.js中的事件循环，但是总是有些地方不是很理解，最近无意中看到了Node官方文档中对事件循环（Event Loop）的介绍后，感觉有一种豁然开朗的感觉，但是其文档是英文版，在此，根据个人理解，进行翻译。 原文地址：事件循环: https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" />
+<meta property="og:description" content="看到很多文件介绍关于Node.js中的事件循环，但是总是有些地方不是很理解，最近无意中看到了Node官方文档中对事件循环（Event Loop）的介绍后，感觉有一种豁然开朗的感觉，但是其文档是英文版，在此，根据个人理解，进行翻译。 原文地址：事件循环: https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" />
+<link rel="canonical" href="http://localhost:4000/node/2018/10/05/Nodejs%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.html" />
+<meta property="og:url" content="http://localhost:4000/node/2018/10/05/Nodejs%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/node/2018/10/05/Nodejs%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.html","headline":"Nodejs中的事件循环","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"看到很多文件介绍关于Node.js中的事件循环，但是总是有些地方不是很理解，最近无意中看到了Node官方文档中对事件循环（Event Loop）的介绍后，感觉有一种豁然开朗的感觉，但是其文档是英文版，在此，根据个人理解，进行翻译。 原文地址：事件循环: https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/node/2018/10/05/Nodejs%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Nodejs中的事件循环</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>看到很多文件介绍关于Node.js中的事件循环，但是总是有些地方不是很理解，最近无意中看到了Node官方文档中对<strong>事件循环（Event Loop）</strong>的介绍后，感觉有一种豁然开朗的感觉，但是其文档是英文版，在此，根据个人理解，进行翻译。
+原文地址：<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">事件循环: https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/</a></p>
+
+<p><strong>翻译名词解释</strong></p>
+<ol>
+  <li><strong>Event Loop</strong>: 事件循环</li>
+  <li><strong>poll phase</strong>: 轮训阶段</li>
+</ol>
+
+<hr />
+<h2 id="翻译内容">翻译内容</h2>
+<h3 id="事件循环">事件循环</h3>
+<p>事件循环通过尽可能的将相应操作分担给系统内核，从而让单线程的Javascript语言提供了<strong>非阻塞I/O</strong>操作。
+因为目前主流的内核都是多线程的，它们可以同时在后台执行多个操作。当其中的某个操作完成时，系统就会通知Node.js与其相关的回调函数添加到<strong>轮训队列(poll queue)</strong>中，最后被执行。这将在后续中详细讨论。</p>
+
+<h3 id="事件循环介绍">事件循环介绍</h3>
+<p>当Node.js运行，将会初始化一个事件循环，处理那些通过异步api调用，定时器，或者调用process.nextTick()提供的script（或者输入到REPL中的script）。
+下图展示了<strong>事件循环的操作顺序</strong>的概要。
+<img src="http://upload-images.jianshu.io/upload_images/5796375-94776ac39f97ca4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Event Loop" />
+<strong>注意：</strong>图中每一个box代表事件循环的一个阶段。</p>
+
+<p>每个阶段都会维持一个先进先出的可执行回调函数队列。当然每个阶段都有自己特殊的行为方式，即当事件循环进入一个给定的阶段，它执行这个阶段的任何操作，然后执行这个阶段队列中的回调函数直到队列为空，或者回调函数调用次数达到上限。当满足这两个条件后，事件循环会进入下一个阶段。</p>
+
+<p>由于任何操作都有可能规划更多的操作，这操作都会添加到对应阶段的队列中进行排队（并非原文翻译，个人解读）。因此，需要占用大量时间运行的回调会让poll阶段运行更长的事件，设置超过定时器规定的时限。下面内容会详细说明这种情况。</p>
+
+<p><strong>注意：</strong>在Windows和Unix/Linux实现中有轻微的差异，但是并不重要。这里讲解最重要的部分。</p>
+
+<h3 id="各个阶段介绍">各个阶段介绍</h3>
+<ol>
+  <li><strong>timers:</strong> 这个阶段执行通过setTimeout()和setInterval()安排的回调函数。</li>
+  <li><strong>I/O callback:</strong> 这个阶段执行关于close callback（如关闭socket调用的回调）， 定时器安排的回调，调用setImmediate()设置的回调中产生的异常后调用的回调函数。</li>
+  <li><strong>idle:</strong> 内部使用。</li>
+  <li><strong>poll:</strong> I/O事件回调；在这个阶段node会根据实际情况进行堵塞。</li>
+  <li><strong>check:</strong> 由setImmediate()设置的回调函数。</li>
+  <li><strong>close callbacks:</strong> 如socket.on(‘close’, …)设置的回调。</li>
+</ol>
+
+<p>在事件循环执行过程中，Node.js检查是否有有需要等待的异步I/O，定时器，如果没有，结束事件循环。</p>
+
+<h3 id="各个阶段详解">各个阶段详解</h3>
+<h4 id="timers">timers</h4>
+<p>定时器需要指定一个时限，然而提供的回调函数的等待事件可能超过用户期望其运行的具体时间。定时器回调函数会在到达时限后尽可能早的执行，而且系统调度或者正在运行的其他回调函数会延迟他的执行。</p>
+
+<p><strong>注意：</strong>poll阶段控制timers的执行。</p>
+
+<p>如：假如设置一个100ms后执行的定时器，然后在第95ms你的异步文件读取完成：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const fs = require('fs');
+
+function someAsyncOperation(callback) {
+  // Assume this takes 95ms to complete
+  fs.readFile('/path/to/file', callback);
+}
+
+const timeoutScheduled = Date.now();
+
+setTimeout(() =&gt; {
+  const delay = Date.now() - timeoutScheduled;
+
+  console.log(`${delay}ms have passed since I was scheduled`);
+}, 100);
+
+
+// do someAsyncOperation which takes 95 ms to complete
+someAsyncOperation(() =&gt; {
+  const startCallback = Date.now();
+
+  // do something that will take 10ms...
+  while (Date.now() - startCallback &lt; 10) {
+    // do nothing
+  }
+});
+const fs = require('fs');
+
+function someAsyncOperation(callback) {
+  // Assume this takes 95ms to complete
+  fs.readFile('/path/to/file', callback);
+}
+
+const timeoutScheduled = Date.now();
+
+setTimeout(() =&gt; {
+  const delay = Date.now() - timeoutScheduled;
+
+  console.log(`${delay}ms have passed since I was scheduled`);
+}, 100);
+
+
+// do someAsyncOperation which takes 95 ms to complete
+someAsyncOperation(() =&gt; {
+  const startCallback = Date.now();
+
+  // do something that will take 10ms...
+  while (Date.now() - startCallback &lt; 10) {
+    // do nothing
+  }
+});
+</code></pre></div></div>
+<p>当事件循环进入poll阶段（轮训），此时轮训阶段的队列为空（因为fs.readFile()还没有完成），所以它等待剩余的时间，直到最近的定时器时限到达。当它等待了95ms后，fs.readFile()完成了文件读取，而它的加入到poll队列中回调函数需要10ms完成执行。当回调函数执行完成后，poll队列中已经没有其他回调函数，所以时间循环检查时间最近的那个定时器的时限是否已经到达，然后回到timers阶段来执行定时器的回调函数。在这个例子中，你将看到从定时器设置到回调的执行总共延迟将会是105ms。</p>
+
+<p><strong>注意：</strong>为了防止poll阶段耗尽事件循环，libuv(实现Node.js事件循环以及所有该平台异步行为的C类库)设置了精确的最大值（具体值取决于系统）用于停止轮训更多的事件。</p>
+
+<h4 id="io回调函数">I/O回调函数</h4>
+<p>这个阶段执行一些系统操作如TCP错误调用的回调函数。例如：如果TCP socket尝试连接时，接收到ECONNREFUSED，一些*nix系统等待报告这个错误。这将在I/O callback阶段排队执行。</p>
+
+<h4 id="poll">poll</h4>
+<p>poll阶段有两个主要的功能：</p>
+<ol>
+  <li>为到达时限的定时器，执行脚本（不准确，其实是在poll队列中轮空时，检查定时器是否到达时限，如果到达了，则回到timers阶段执行定时器回调函数）</li>
+  <li>执行poll队列中的事件回调函数</li>
+</ol>
+
+<p>当事件循环进入poll阶段，并且此时没有设置定时器，将会发生下面两种情况：</p>
+<ol>
+  <li>如果poll队列不是空的，事件循环将同步迭代执行队列中的回调函数，直到poll队列为空，或者达到执行上限。</li>
+  <li>如果poll队列为空的，将会发生下面两种情况：
+1）如果脚本通过setImmediate()设置，事件循环会结束poll阶段，然后进入check阶段来执行这些脚本。
+2）如果此时没有通过setImmediate()设置的脚本，事件循环将停留在poll阶段，等待回调函数添加到队列中，然后立即执行。</li>
+</ol>
+
+<p>一旦poll队列为空，事件循环将检查已经达到时限的定时器。如果一个或多个定时器已经准备就绪，时间循环将回到timers阶段，执行这些定时器回调函数。</p>
+
+<h4 id="check">check</h4>
+<p>这个阶段，在poll阶段完成后，允许立即执行回调函数。如果poll阶段闲置，且存在setImmediate()设置的队列，事件循环将会进入check阶段，而不是继续等待。</p>
+
+<p>setImmediate()实际上是一个特殊的定时器，在事件循环中占据独立的阶段。它使用libuv API设置poll阶段完成后的执行回调函数。</p>
+
+<p>总体上，伴随着代码执行完，事件循环将会进入poll阶段来等待即将到达的网络连接，请求等。然而，如果此时有使用setImediate()设置的回调函数，并且poll阶段闲置，事件循环结束poll阶段，进入check阶段而不是等待poll事件。</p>
+
+<h4 id="close-callbacks">close callbacks</h4>
+<p>如果一个sokect忽然关闭（如：socket.destroy()），’close’事件将会在这个阶段触发。process.nextTick()也会触发（个人理解：这个不需要强行理解，下面有process.nextTick()具体介绍）。</p>
+
+<h3 id="setimmediate-vs-settimeout">setImmediate() vs setTimeout()</h3>
+<p>setImmediate()和setTimeout()两者相似，但是调用时机不同。</p>
+<ol>
+  <li>setImmediate()设计用来当当前poll阶段完成是执行脚本。</li>
+  <li>setTimeout()经过给定时间后执行脚本</li>
+</ol>
+
+<p>这两个定时器的执行顺序非常的依赖调用上下文。如果两个都是在主模块中调用，定时器将会受到执行过程的约束（可能会收到机器上运行的其他应用影响）。</p>
+
+<p>如，如果我们执行下面的脚本，这两个定时器的执行顺序是不确定的，因为它受到执行过程的约束。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// timeout_vs_immediate.js
+setTimeout(() =&gt; {
+  console.log('timeout');
+}, 0);
+
+setImmediate(() =&gt; {
+  console.log('immediate');
+});
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ node timeout_vs_immediate.js
+timeout
+immediate
+
+$ node timeout_vs_immediate.js
+immediate
+timeout
+</code></pre></div></div>
+<p>然而，如果你将这两个定时器设置在I/O回调中，immediate回调函数总是会现在执行。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// timeout_vs_immediate.js
+const fs = require('fs');
+
+fs.readFile(__filename, () =&gt; {
+  setTimeout(() =&gt; {
+    console.log('timeout');
+  }, 0);
+  setImmediate(() =&gt; {
+    console.log('immediate');
+  });
+});
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ node timeout_vs_immediate.js
+immediate
+timeout
+
+$ node timeout_vs_immediate.js
+immediate
+timeout
+</code></pre></div></div>
+<p>使用setImmediate()函数主要优势是设置在I/O回调中setImmediate()不管当前有多少定时器，总是比其他定时器先执行。</p>
+
+<h3 id="processnexttick">process.nextTick()</h3>
+<h4 id="理解processnexttick">理解process.nextTick()</h4>
+<p>你可能意识到process.nextTick()并没有出现在事件循环的图中，即便它是异步API的一部分。这是因为process.nextTick()严格意义上来说，并不属于事件循环。取而代之的是，nextTickQueue将会忽略当前事件循环的阶段，在当前操作完成之后执行。</p>
+
+<p>回顾事件循环结构图，在一个特定阶段的任何时间调用process.nextTick()，所有传入process.nextTick()的回调函数将会在事件循环继续之前执行。这可能会造成一些不良情况，因为这允许你通过迭代调用process.nextTick()耗尽I/O，从而使得事件循环不能进入poll阶段。</p>
+
+<h4 id="为什么允许上述情况">为什么允许上述情况</h4>
+<p>为什么会允许上述情况出现在Node.js中？Node.js的设计思想是尽可能的异步，即使并不需要异步。如下代码片段：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function apiCall(arg, callback) {
+  if (typeof arg !== 'string')
+    return process.nextTick(callback,
+                            new TypeError('argument should be string'));
+}
+</code></pre></div></div>
+<p>这个片段进行了参数类型的检测，如果类型不一致，就传递一个err到回调函数中。其中，需要传入回调函数中的参数，直接写在回调函数的后面即可。</p>
+
+<p>我们这里做的事情是，传递一个error给回调函数，但是这个回调会在用户的剩余代码执行完之后才会执行。通过使用process.nextTick()，我们保证apiCall()总是在剩余代码执行之后事件循环继续之前执行回调函数。为了实现这些，允许JS调用栈展开，然后立即执行process.nextTick()提供的回调函数。这个回调中允许迭代调用process.nextTick()而不会触发RangeError: Maximum call stack size exceeded from v8。</p>
+
+<p>这个思想会导致一些潜在的问题。如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let bar;
+
+// this has an asynchronous signature, but calls callback synchronously
+function someAsyncApiCall(callback) { callback(); }
+
+// the callback is called before `someAsyncApiCall` completes.
+someAsyncApiCall(() =&gt; {
+  // since someAsyncApiCall has completed, bar hasn't been assigned any value
+  console.log('bar', bar); // undefined
+});
+
+bar = 1;
+</code></pre></div></div>
+<p>开发者定义了someAsyncApiCall()具有异步的特征，但是它其实是一个通过操作。当它被调用，回调函数提供someAsyncApiCall()会在当前事件循环阶段被调用，因为someAsyncApiCall()其实没有做任何异步处理。结果，回调函数尝试引用bar，即使此时bar还没有进行赋值（此时代码还没有运行到bar = 1;这条语句）。</p>
+
+<p>通过将回到函数设置在process.nextTick()中，脚本将会有机会运行完成，允许变量，函数初始化完成后，在调用回调函数。使用process.nextTick()阻止事件循环继续进行还有一个优势。在事件循环继续执行前，将处理当前事件循环中出现的错误。下面是上一个实例的正确做法</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let bar;
+
+function someAsyncApiCall(callback) {
+  process.nextTick(callback);
+}
+
+someAsyncApiCall(() =&gt; {
+  console.log('bar', bar); // 1
+});
+
+bar = 1;
+</code></pre></div></div>
+<p>下面是一个真实的例子：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const server = net.createServer(() =&gt; {}).listen(8080);
+
+server.on('listening', () =&gt; {});
+</code></pre></div></div>
+<p>当listen()函数中，只传递端口号时，端口后会立马进行设置。所以，’listening’回调函数将会立马被调用。问题是.on(‘listening)回调函数将不会那个时候设置。
+为了绕过这个，’listening’事件在nextTick()中排队，从而运行脚本执行完成后在触发。这允许开发者设置任意设置事件回调函数。</p>
+
+<h3 id="processnexttick-vs-setimmediate">process.nextTick() vs setImmediate()</h3>
+<p>就用户而言，这两个函数相似，但是它们的名字很令人迷惑。</p>
+<ol>
+  <li>process.nextTick()在同一个阶段执行</li>
+  <li>setImmediate()在事件循环的下一个阶段或者’tick’中执行</li>
+</ol>
+
+<p>本质上，它们的名字需要交换一下。process.nextTick()比setImmediate()更快被执行，但是这是过去的产物，很难修改。修改这个问题将会导致一大部分的npm包出现损坏。每天有更多的模块被添加，这意味着更多潜在的损坏会出现。因此即使它们的名字令人迷惑，名字不会修改。</p>
+
+<p>我们提倡开发者使用setImmediate()，因为setImmediate()具有更好的兼容性，如在浏览器中。</p>
+
+<h3 id="为什么使用processnexttick">为什么使用process.nextTick()</h3>
+<p>这里有两个主要的原因:</p>
+<ol>
+  <li>在事件循环继续之前允许用户处理错误，清除任何之后不需要的资源，或者可能再次请求等。</li>
+  <li>需要回调函数在调用堆栈上但是在事件循环继续之前调用。</li>
+</ol>
+
+<p>下面例子符合用户的期望，如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const server = net.createServer();
+server.on('connection', (conn) =&gt; { });
+
+server.listen(8080);
+server.on('listening', () =&gt; { });
+</code></pre></div></div>
+<p>listen()在第一轮事件循环执行，但是listening事件的回调函数是通过setImmediate()设置的（与前面描述不一致，但是大致可以理解为，触发listening事件的语句放置在一个异步api，当其触发listening事件时，此时server.on(‘listening’, () =&gt; { });已经执行完成）。要使事件循环继续进行，它必须到达轮询阶段，这意味着可能没有收到连接的机会，允许连接事件在侦听事件之前被触发。（listening事件先被触发，connection事件之后被触发）。</p>
+
+<p>另一个例子，运行一个函数构造函数，继承EventEmitter并且在构造函数内部触发一个事件。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const EventEmitter = require('events');
+const util = require('util');
+
+function MyEmitter() {
+  EventEmitter.call(this);
+  this.emit('event');
+}
+util.inherits(MyEmitter, EventEmitter);
+
+const myEmitter = new MyEmitter();
+myEmitter.on('event', () =&gt; {
+  console.log('an event occurred!');
+});
+</code></pre></div></div>
+<p>你不能在构造函数中立马触发事件，因此此时，脚本中还没有设置改时间的回调函数。所以，在构造函数中，你可以使用process.nextTick()来设置一个触发事件的回调函数，这将会达到预定的效果。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const EventEmitter = require('events');
+const util = require('util');
+
+function MyEmitter() {
+  EventEmitter.call(this);
+
+  // use nextTick to emit the event once a handler is assigned
+  process.nextTick(() =&gt; {
+    this.emit('event');
+  });
+}
+util.inherits(MyEmitter, EventEmitter);
+
+const myEmitter = new MyEmitter();
+myEmitter.on('event', () =&gt; {
+  console.log('an event occurred!');
+});
+</code></pre></div></div>
+
+
+  </div><a class="u-url" href="/node/2018/10/05/Nodejs%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

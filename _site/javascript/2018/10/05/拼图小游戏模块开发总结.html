@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>拼图小游戏模块开发总结 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="拼图小游戏模块开发总结" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Good Good Study, Day Day Up!" />
+<meta property="og:description" content="Good Good Study, Day Day Up!" />
+<link rel="canonical" href="http://localhost:4000/javascript/2018/10/05/%E6%8B%BC%E5%9B%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html" />
+<meta property="og:url" content="http://localhost:4000/javascript/2018/10/05/%E6%8B%BC%E5%9B%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/javascript/2018/10/05/%E6%8B%BC%E5%9B%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html","headline":"拼图小游戏模块开发总结","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"Good Good Study, Day Day Up!","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/javascript/2018/10/05/%E6%8B%BC%E5%9B%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">拼图小游戏模块开发总结</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="http://upload-images.jianshu.io/upload_images/5796375-e62ff5feabab9a37.jpg" alt="封面" /></p>
+
+<h3 id="目录">目录</h3>
+<ol>
+  <li>成果展示</li>
+  <li>开发过程中考虑的问题</li>
+  <li>项目源码及使用方法</li>
+</ol>
+
+<h4 id="成果展示">成果展示</h4>
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-631175a909ee5a7c.gif?imageMogr2/auto-orient/strip" alt="最终实现成果" /></p>
+
+<h4 id="开发过程中考虑的问题">开发过程中考虑的问题</h4>
+<h5 id="布局展示方面">布局展示方面</h5>
+<ol>
+  <li>
+    <p>如何创建屏幕自适应的正方形盒子
+<strong>自适应宽度：</strong>
+考虑到拼图游戏会被添加到不同宽度的盒子中，如直接引入到不同分辨率的手机中，或不同指定宽度的盒子中，在这里，我们使用<strong>width: 100%</strong>，来设置正方形容器的宽度，让容器的宽度完全等于外部元素的宽度（因为块级元素独占一行，继承父元素的宽度，因此可以不用设置）。
+<strong>正方形盒子：</strong>
+使用<strong>padding-top: 100%</strong>让容器成为一个正方形，因为padding设置为百分比时，也是根据父元素的宽度进行计算的，并且在计算盒子的大小时，是包括在内的，（更明显一点的行为为，background会影响padding但是不会影响border,margin）。
+但是此时并没有完成，此时如果在标签中添加元素的话，元素会布局到padding-top的下面，撑高我们的容器，并不能达到我们要的效果，因此需要在添加一个内层的盒子并且将这个盒子相对于外层容器决定定位到左上角，然后由容器中的内容来撑高。（在这里我通过脚本计算，根据当前外层盒子的宽度，计算每个小图片的宽度，然后完美撑高盒子，如果使用CSS来设置，则需要配合box-size: padding-box;）。
+<strong>具体实现：</strong>
+```
+CSS:
+ #outer {
+             /<em>设置相对定位</em>/
+         position: relative;
+     /<em>设置正方形</em>/
+     /<em>width属性会继承，块级元素可以不用设置</em>/
+     /<em>width: 100%;</em>/
+     padding-top: 100%;
+     background: rgb(250, 250, 0);
+ }</p>
+
+    <p>#inner {
+     /<em>定位到左上角</em>/
+     position: absolute;
+     top: 0;
+     left: 0;
+ }</p>
+  </li>
+</ol>
+
+<p>HTML: 
+	&lt;div id="outer"&gt;
+		&lt;div id="inner"&gt;Happy Everyday&lt;/div&gt;
+	&lt;/div&gt;</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![正方形容器](http://upload-images.jianshu.io/upload_images/5796375-9dc219fb2a128a55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**知识点：**：
+使用百分值设置盒模型（margin，border，padding，width，height）时，margin，padding，width都是相对于父元素的width，而height是相对于父元素的height（特殊：border的宽度为特定值，或者0）。
+
+2. 如何获取这个盒子的宽度
+**计算样式：**
+计算样式：指的是经过浏览器进行整体处理后的综合结果。
+在这里，可以通过js来获取这个值：
+</code></pre></div></div>
+<p>var style = document.defaultView.getComputedStyle(ele, null);
+// 获取宽度
+var width = parseInt(style.width);
+```
+<strong>注意点：</strong> 
+使用这个函数返回的是一个对<strong>当前这个元素所有计算样式的引用</strong>，因此如果你在保存这个引用之后重新修改了样式，其中的样式值也会随之改变。
+还有一点是，这个计算样式对象的所有属性值都是字符串，如果我们需要获取数值类型的数据，需要进一步进行处理。</p>
+
+<ol>
+  <li>
+    <p>如何确定内部小方块的大小
+<strong>外层容器处理：</strong>
+让外层容器刚好可以被整除
+w_container(容器宽度) -= w_container % base(每行的方块个数) ； 
+<strong>方块宽度计算公式（考虑到border）：</strong>
+w_ceil(小方块宽度) = Math.floor(w_container(容器宽度) / base) - 2 * border
+<strong>注意点：</strong>
+在小方块的宽度+border总和实际上是小于外部容器的宽度，base值越大，差值越大，就会导致不居中的问题。解决方式：将中间层容器设置dispaly: inner-block; 然后最外层设置text-align: center;让容器居中。
+方块设置为：dispaly: inner-block;排列时会出现缝隙的问题，是由于inner-block具有行内元素的特性，换行会出现空白折叠现象，每个方块之间出现一个空白。解决方式：font-size: 0;即可。</p>
+  </li>
+  <li>
+    <p>图片的展示方式
+直接使用背景图片的方式，结合使用background-image, background-position, background-size来实现。
+<strong>注意点：</strong>
+图片的定位：background-position，是根据background-size的大小进行设置的，如果没有设置后者，则是根据实际大小来设置，但是如果设置了，则根据设置的大小进行定位。且定位的值都为负值。</p>
+  </li>
+</ol>
+
+<h5 id="图片处理逻辑">图片处理逻辑</h5>
+<p>将图片切割成n<em>n份，然后从左到右，从上到下，一起进行编号（0 ~n</em>n-1），采用一个数组来存放当前图片的实际顺序（即方块中对应的图片索引）。</p>
+
+<ol>
+  <li>
+    <p>图片定位
+给定一个图片的位置，则：
+row：position / 3
+col:   postion % 3 
+最终位置为（左上角为(0, 0)）：
+x = col * w_ceil(方块宽度)
+y = row * w_ceil(方块宽度)</p>
+  </li>
+  <li>
+    <p>图片打乱
+每次上述数组中的两个点，然后互换这两个点中的内容，重复多次这样的操作。</p>
+  </li>
+  <li>
+    <p>拼图检测
+如果数组中对应元素和索引值相等，则此时图片即在正确的位置上。</p>
+  </li>
+</ol>
+
+<h5 id="其他方面">其他方面</h5>
+<ol>
+  <li>
+    <p>页面结构和基础样式，只在初始化是进行一次处理，重新开始游戏时，只图片不会对整个拼图模块进行重新布局。</p>
+  </li>
+  <li>
+    <p>DOM引用本地化：在脚本运行时，便对需要使用的页面元素进行本地化，减少DOM操作。</p>
+  </li>
+  <li>
+    <p>实现了封装，将所有将页面结构，样式，处理逻辑都封装在内部，只对提供了一些api以及可配置项，只需要引入一个js文件，调用相应api，即可实现一个拼图游戏</p>
+  </li>
+</ol>
+
+<h4 id="项目源码及使用方法">项目源码及使用方法</h4>
+<p><a href="https://github.com/DiligentYe/puzzle">github线上地址</a></p>
+
+  </div><a class="u-url" href="/javascript/2018/10/05/%E6%8B%BC%E5%9B%BE%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

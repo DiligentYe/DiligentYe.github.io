@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Vue-img-preload | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Vue-img-preload" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="vue-img-preload 预加载页面上的图片资源，提高用户体验" />
+<meta property="og:description" content="vue-img-preload 预加载页面上的图片资源，提高用户体验" />
+<link rel="canonical" href="http://localhost:4000/vue/2018/10/05/Vue_img_preload.html" />
+<meta property="og:url" content="http://localhost:4000/vue/2018/10/05/Vue_img_preload.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/vue/2018/10/05/Vue_img_preload.html","headline":"Vue-img-preload","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"vue-img-preload 预加载页面上的图片资源，提高用户体验","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/vue/2018/10/05/Vue_img_preload.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Vue-img-preload</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="vue-img-preload">vue-img-preload</h2>
+<p>预加载页面上的图片资源，提高用户体验</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-b029c649855a5d67.gif?imageMogr2/auto-orient/strip" alt="效果预览" /></p>
+
+<h3 id="使用方法">使用方法</h3>
+<h5 id="浏览器中">浏览器中</h5>
+<ol>
+  <li>下载vue-img-preload插件
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install vue-img-preload
+</code></pre></div>    </div>
+  </li>
+  <li>在页面中引入dist目录下的<strong>preload.min.js</strong>文件<strong>（确保此时页面已经引入vue.js）</strong>，如
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script src="path/dist/preload.min.js"&gt;&lt;/script&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>首先创建一个空的Vue实例，用于页面中的事件监听。调用Vue.use方法装载Preload插件，并传入配置参数，eachLoaded在每张图片下载完成后都会执行该方法， allLoaded则在所有图片都下载完成后执行，此处分别触发一个eachload，allload事件，并传回部分内部处理参数，如已下载图片数量，图片下载完成后的event对象。
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 非父子组件通信
+ var bus = new Vue()
+ // 安装插件
+ Vue.use(Preload, {
+     eachLoaded: function(msg) {
+         bus.$emit('eachload', msg)
+     },
+     allLoaded: function(msg) {
+         bus.$emit('allload'，msg)
+     }
+ })
+</code></pre></div>    </div>
+  </li>
+  <li>此时Vue对象中添加一个v-preload指令，可以在Vue管理的结构中使用，<strong>&lt;div v-preload="imgs"&gt;&lt;/div&gt;</strong>，并传入参数。
+```
+// 页面结构</li>
+</ol>
+<div id="app">
+        <div class="spinner" :class="[isLoaded ? 'loading' : '']">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+        <div v-preload="imgs"></div>
+        <div class="pics">
+            &lt;img v-for="img in imgs" :src="img" alt="" width=250 /&gt;
+        </div>
+    </div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+<p>// 数据
+ var vm = new Vue({
+        el: ‘#app’,
+        data: function() {
+            return {
+                isLoaded: false,
+                imgs: [
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_0923.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3606.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3657.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3715.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3775.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3789.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3791.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3832.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3833.JPG?raw=true’,
+                    ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_3910.JPG?raw=true’
+                ]
+            }
+        }
+    })</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 注册eachload，allload事件处理函数，当所有图片都下载完毕后，通过控制isLoaded的值，控制loading类，从而控制加载动画
+bus.$on('eachload', function(msg) {
+    console.log(msg.total)
+})
+
+bus.$on('allload', function(msg) {
+    vm.isLoaded = true
+}) ``` **注：可运行vue-img-preload/test/web/simple.html查看效果** 4. 上述方法中，在装载插件的时候统一配置eachLoaded，和allLoaded配置项，如果针对页面中多个部分分别进行配置，此时需要给v-preload传入一个Object参数，其中包含imgs和options属性，分别对应图片地址数组和特定配置项，如下: ``` infos: {
+ imgs: ['https://github.com/DiligentYe/some-picture/blob/master/IMG_0923.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3606.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3657.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3715.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3775.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3789.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3791.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3832.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3833.JPG?raw=true', 'https://github.com/DiligentYe/some-picture/blob/master/IMG_3910.JPG?raw=true'],
+ options: {
+     allLoaded: function(msg) {
+         bus.$emit('allload')
+     }
+ }  }
+</code></pre></div></div>
+
+<p>datas: {
+     imgs: [‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4030.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4056.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4967.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4968.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4969.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4970.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4971.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4972.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4973.JPG?raw=true’, ‘https://github.com/DiligentYe/some-picture/blob/master/IMG_4974.JPG?raw=true’],
+     options: {
+         type: ‘order ‘,
+         eachLoaded: function(msg) {
+             bus.$emit(‘eachload’, msg)
+         },
+         allLoaded: function(msg) {
+             bus.$emit(‘allload’)
+         }
+     }
+ }
+```
+针对infos，只会在所有图片下载完成的时候触发allload，而datas，则设置了图片有序下载，并且单张下载完毕和所有图片下载完毕都会执行相应的动作。
+<strong>注：可运行vue-img-preload/test/web/index.html查看效果</strong></p>
+
+<h5 id="组件中">组件中</h5>
+<p>大体用法与在页面中一致，具体用法可参考<strong>vue-img-preload/test/module/test.js</strong>写法，运行结果可运行<strong>npm run dev</strong>，启动一个服务器，访问对应地址即可。</p>
+
+<h3 id="配置参数">配置参数</h3>
+<ol>
+  <li>
+    <p>eachLoaded(function): 每次加载成功图片的行为，默认在控制台打印<strong>one picture has been loaded</strong>。</p>
+  </li>
+  <li>
+    <p>allLoaded(function): 所有图片加载成功的行为，默认在控制台打印<strong>all picture has been loaded</strong>。</p>
+  </li>
+  <li>
+    <p>type(string): 图片有序／无序加载，默认为’disorder‘，采用无序加载，如果type值不为’disorder‘，则采用有序加载。使用有序加载时，建议设置为‘order’。</p>
+  </li>
+  <li>
+    <p>max: 一次加载的照片个数，默认值为1000，当图片数量小于max时，加载所有图片；当图片的数量大于max时，采用分块加载，当前块加载完毕后才会加载下一块，每块的长度为max</p>
+  </li>
+</ol>
+
+
+  </div><a class="u-url" href="/vue/2018/10/05/Vue_img_preload.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

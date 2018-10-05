@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>React Redux学习总结 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="React Redux学习总结" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. React React是一个View层的库，可用于组件化开发。该库提供一个JSX语法，允许用户在JS文件像写HTML一样，编写组件的结构，并根据一系列的语法，将数据嵌入所写的HTML中。" />
+<meta property="og:description" content="1. React React是一个View层的库，可用于组件化开发。该库提供一个JSX语法，允许用户在JS文件像写HTML一样，编写组件的结构，并根据一系列的语法，将数据嵌入所写的HTML中。" />
+<link rel="canonical" href="http://localhost:4000/react/2018/10/05/React_Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.html" />
+<meta property="og:url" content="http://localhost:4000/react/2018/10/05/React_Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/react/2018/10/05/React_Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.html","headline":"React Redux学习总结","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"1. React React是一个View层的库，可用于组件化开发。该库提供一个JSX语法，允许用户在JS文件像写HTML一样，编写组件的结构，并根据一系列的语法，将数据嵌入所写的HTML中。","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/react/2018/10/05/React_Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">React Redux学习总结</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-react">1. React</h3>
+<p>React是一个View层的库，可用于组件化开发。该库提供一个JSX语法，允许用户在JS文件像写HTML一样，编写组件的结构，并根据一系列的语法，将数据嵌入所写的HTML中。</p>
+
+<ol>
+  <li>基本用法
+React框架对用户提供了两个类库，react和react-dom，在使用前需要引入这两个包。其中react提供Component，自定义组件继承Component；react-dom则对外提供了render方法，将组件挂载到页面中。</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class App extends React.Component {
+  render() {
+    return (
+      &lt;div&gt;Hello React&lt;/div&gt;
+    )
+  }
+}
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ReactDOM.render(
+  &lt;App /&gt;,
+  document.getElementById('root')
+);
+</code></pre></div></div>
+
+<ol>
+  <li>内部状态state和外部参数prop
+<strong>state</strong>: 组件内部状态，在constructor构造函数中通过设置this.state的值初始化，此后利用this.state进行获取，并利用this.setState函数更新值（<strong>注意：每次都需要返回一个新的对象或者值</strong>）
+<strong>prop</strong>: 父组件在调用子组件通过设置属性将数据参入子组件内部，在子组件中通过this.props获取</li>
+</ol>
+
+<p>以上两种数据改变都会触发组件的更新操作。</p>
+
+<ol>
+  <li>事件
+通过在JSX中的标签上设置onClick，onChange等属性，将触发后的事件处理函数作为值。
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class App extends React.Component {
+  render() {
+ return (
+   &lt;div&gt;
+     &lt;button onClick={add}&gt;增加&lt;/button&gt;
+   &lt;/div&gt;
+ )
+  }
+}
+</code></pre></div>    </div>
+    <p>通常情况下，事件处理函数执行后，都会改变现有的state，触发组件更新操作。
+__注意：__事件处理函数异步调用时是在全局环境中执行，因此需要绑定this，方法如下
+```</p>
+  </li>
+  <li>箭头函数: () =&gt; {}</li>
+  <li>
+    <p>在constructor中绑定: this.add = this.add.bind(this)
+```</p>
+  </li>
+  <li>React存在的问题
+为了统一管理状态数据，通常会将数据放在最上层组件中，然后通过props层层传递，传递到底层组件中。如果嵌套太深，参数传递过程非常的复杂。因此出现了Redux。</li>
+</ol>
+
+<h3 id="2-redux">2. Redux</h3>
+<ol>
+  <li>基本用法
+Redux中存在几个概念：state, action, dispatch</li>
+</ol>
+
+<p><strong>state:</strong> 依旧是组件的内部的状态
+<strong>action:</strong> 组件动作，相应的改变组件内部的状态值
+<strong>dispatch:</strong> 发出相应的动作</p>
+
+<p>Redux中提供createStore方法用于生成一个store对象，这个函数接受一个初始值state值和一个reducer函数。当用户发出相应的action时，利用传入的reducer函数计算出一个新的state值，并返回。</p>
+
+<p>store对象中包括getState方法(获取目前的state)，subscribe方法(指定监听函数，当state变化时调用)，dispatch方法(分发action)。</p>
+
+<p>在使用过程中，需要将store作为参数传递给子组件。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// reducer
+function counter(state = 0, action) {
+  switch (action.type) {
+    case 'ADD':
+      return state + 1;
+    case 'SUB':
+      return state - 1;
+    default:
+      return 10;
+  }
+}
+
+// 创建Store
+let store = createStore(counter);
+console.log(store.getState()); // 10
+
+// 监听器
+function listener() {
+  console.log(store.getState()) // 先输出11，在输出10
+}
+
+// 订阅事件监听
+store.subscribe(listener);
+
+// 分发事件
+store.dispatch({ type: 'ADD' });
+
+store.dispatch({ type: 'SUB' });
+</code></pre></div></div>
+
+<ol>
+  <li>react-redux
+react-redux是为了方便开发，提供了一个Provider组件，以及connect方法。Provider组件作为做上层组件，需要将store作为参数注入组件中，此后在子组件中都可以访问到store这个对象；connect方法接受两个参数：mapStateToProps，actionCreators，并返回处理后的组件，其中mapStateToProps可以将对应的state作为prop注入对应的子组件，actionCreator可以将对应的actioncreator作为prop注入对应的子组件。
+```
+// 定义Connect,将对应的数据注入
+const mapStateToProps = (state) =&gt; {
+  return { num: state }// 必须返回一个对象
+};
+const actionCreator = { addAction, subAction, addActionAsync }</li>
+</ol>
+
+<p>App = connect(mapStateToProps, actionCreator)(App)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+__装饰器写法：__
+</code></pre></div></div>
+<p>@connect(
+  (state) =&gt; ({ num: state.counter }),
+  { addAction, subAction, addActionAsync }
+)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>使用上述写法，需要安装babel插件babel-plugin-transform-decorators-legacy，并且在babelrc中添加相应的配置
+</code></pre></div></div>
+<p>npm install –save-dev babel-plugin-transform-decorators-legacy</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+<p>“plugins”: [
+   “transform-decorators-legacy”
+]</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### 3. React-router
+react-router提供了web和Native两个版本，当在浏览器中使用时，需要安装react-router-dom
+</code></pre></div></div>
+<p>npm install –save react-router-dom</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>react-router-dom中提供了BrowserRouter, Link, Route, Switch，Redirect。
+其中：
+    BrowserRouter包裹所有需要路由控制的内容，在使用redux时，需要放置在Provider组件中。
+    Link组件用于链接某个路径下，用户点击跳转
+    Route组件用于路由到这个组件
+    Switch组件用于在内部Route组件中选一个
+    Redirect组件用于重定向到某个路径下
+</code></pre></div></div>
+<p>&lt;Provider store={store}&gt;
+    <BrowserRouter>
+      <Switch>
+        &lt;Route path="/" exact component={Dashboard}&gt;&lt;/Route&gt;
+        &lt;Route path="/login" component={Auto}&gt;&lt;/Route&gt;
+        &lt;Route path="/dashboard" component={Dashboard}&gt;&lt;/Route&gt;
+        <!-- <Redirect to="/dashboard"></Redirect>     -->
+        <!-- <Link to="/dashboard"></Link> -->
+      </Switch>
+    </BrowserRouter>
+  &lt;/Provider&gt;,</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### 4. 多个reducer
+当存在多个reducer，分别管理不同方面的state，需要将其合并成一个reducer，redux中提供了combineReducers函数，完成该项功能。
+</code></pre></div></div>
+<p>combineReducers({ counter, auth }) //返回合并后的reducer</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+### 5. React-devtools Redux-devtool安装
+这两个插件可直接在Chrome商店中安装，React-devtools可直接使用，Redux-devtool则需要在代码中进行相应的设置才能正常使用。
+</code></pre></div></div>
+<p>// 配置Redux-devtools</p>
+
+<p>const composeEnhancers =
+  typeof window === ‘object’ &amp;&amp;
+    window.<strong>REDUX_DEVTOOLS_EXTENSION_COMPOSE</strong> ?
+    window.<strong>REDUX_DEVTOOLS_EXTENSION_COMPOSE</strong>({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize…
+    }) : compose;</p>
+
+<p>const enhancer = composeEnhancers(
+  applyMiddleware(thunk),
+  // other store enhancers if any
+);</p>
+
+<p>let store = createStore(reducers, enhancer);
+```</p>
+
+
+  </div><a class="u-url" href="/react/2018/10/05/React_Redux%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Centos7中英文输入法切换 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Centos7中英文输入法切换" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Good Good Study, Day Day Up!" />
+<meta property="og:description" content="Good Good Study, Day Day Up!" />
+<link rel="canonical" href="http://localhost:4000/linux/2018/10/05/Centos7%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E5%88%87%E6%8D%A2.html" />
+<meta property="og:url" content="http://localhost:4000/linux/2018/10/05/Centos7%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E5%88%87%E6%8D%A2.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/linux/2018/10/05/Centos7%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E5%88%87%E6%8D%A2.html","headline":"Centos7中英文输入法切换","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"Good Good Study, Day Day Up!","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/linux/2018/10/05/Centos7%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E5%88%87%E6%8D%A2.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Centos7中英文输入法切换</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="http://upload-images.jianshu.io/upload_images/5796375-101394e572211503.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Centos  7" /></p>
+
+<p>如何在liunx系统中输入中文，且能在中英文之间自如切换，看了下面的介绍，你就清楚啦！</p>
+
+<h3 id="linux系统中是否已经安装中文字符包">linux系统中是否已经安装中文字符包</h3>
+<p><strong>三种方法进行检测：</strong></p>
+<ol>
+  <li>如果你是选择中文安装系统，成功后你的系统肯定就已经安装了中文字符包啦！</li>
+</ol>
+
+<p>2.也可以在终端输入<strong>echo $LANG</strong>，如果输出为zh_CN开头，代表本地语言是中文，肯定安装了中文字符包。
+<img src="http://upload-images.jianshu.io/upload_images/5796375-872bbe49a25e91ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看本地语言" /></p>
+
+<ol>
+  <li>查看<strong>/etc/locale.conf</strong>文件内容，在终端输入<strong>cat /etc/locale.conf</strong>。<strong>注意：</strong>centos有些版本中，不是/etc/locale.conf而是/etc/sysconfig/i18n。
+<img src="http://upload-images.jianshu.io/upload_images/5796375-8832ebaab5228b65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看系统语言配置文件" /></li>
+</ol>
+
+<p>如果确认你没有安装中文文字包，执行以下命令安装即可。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum -y groupinstall chinese-support
+</code></pre></div></div>
+<h3 id="centos中设置中英文切换">Centos中设置中英文切换</h3>
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-362302c13a0df22c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打开设置面板" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-75ce77c4aaae09e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击区域和语言" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-35e5d718e300429c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击+号添加输入源" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-57a752bc3d0ead1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击+号后选择汉语（中国）" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-8e69340a6febc9fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="必须 选择汉语（Intelligent Pinyin）" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-5836c6b64e6d385a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击键盘选项" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-754aebba43ec4e7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置切换输入源快捷键" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-2722fadb20a7b7bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="可切换输入源，可用快捷键直接进行切换" /></p>
+
+<h3 id="注意事项">注意事项</h3>
+<ol>
+  <li>
+    <p>添加输入源之前，检查你是否已经具有<strong>汉语（Intelligent Pinyin）</strong>输入源。</p>
+  </li>
+  <li>
+    <p>汉语的输入源必须是<strong>汉语（Intelligent Pinyin）</strong>，否则无法打出中文</p>
+  </li>
+  <li>
+    <p>最好自定义中引文切换快捷键，用自己最熟悉的按键</p>
+  </li>
+  <li>
+    <p>以上实践都是在Centos 7 上进行实践，未验证其他版本。</p>
+  </li>
+</ol>
+
+<h3 id="参考">参考</h3>
+<p><a href="http://blog.csdn.net/linghao00/article/details/6804411">http://blog.csdn.net/linghao00/article/details/6804411</a></p>
+
+
+  </div><a class="u-url" href="/linux/2018/10/05/Centos7%E4%B8%AD%E8%8B%B1%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E5%88%87%E6%8D%A2.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>字符编码介绍及常见问题总结 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="字符编码介绍及常见问题总结" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="目录 了解字符编码 Unicode与UTF-8，UTF-16之间的关系 字符编码常见问题 相关资料链接" />
+<meta property="og:description" content="目录 了解字符编码 Unicode与UTF-8，UTF-16之间的关系 字符编码常见问题 相关资料链接" />
+<link rel="canonical" href="http://localhost:4000/javascript/2018/10/05/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html" />
+<meta property="og:url" content="http://localhost:4000/javascript/2018/10/05/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/javascript/2018/10/05/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html","headline":"字符编码介绍及常见问题总结","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"目录 了解字符编码 Unicode与UTF-8，UTF-16之间的关系 字符编码常见问题 相关资料链接","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/javascript/2018/10/05/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">字符编码介绍及常见问题总结</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="目录">目录</h3>
+<ol>
+  <li>了解字符编码</li>
+  <li>Unicode与UTF-8，UTF-16之间的关系</li>
+  <li>字符编码常见问题</li>
+  <li>相关资料链接</li>
+</ol>
+
+<h4 id="1-了解字符编码">1. 了解字符编码</h4>
+<p>字符编码，即其字面意，就是每一个字符都对应一个编码（根据规格不同，最终得到的编码结果也不同）。我们在日常使用中，经常接触到的字符编码有以下三种：ASCII，ANSI，Unicode。</p>
+
+<ol>
+  <li>
+    <p><strong>ASCII编码:</strong> 是这三种编码中最原始的编码方式，即<strong>采用一个字节（8位二进制位）对字符进行编码</strong>。低7位二进制位进行编码，第8位通常为0，十进制可以表示为0~128，十六进制为0x00~0x8F。因此ASCII可以标识128个常用字符，其中有 96 个可打印字符，包括常用的字母、数字、标点符号等，另外还有 32 个控制字符。</p>
+  </li>
+  <li>
+    <p><strong>ANSI编码:</strong> 是各个国家对ASCII的扩充，它<strong>根据用户所使用的系统的不同而不同</strong>，如在中文操作系统下，字符编码为GB2312编码，而在日文操作系统下，则是ANSI 编码代表 JIS 编码等。
+因此也会出现一个问题：如果在中文系统中保存为ANSI编码，那么在日文操作系统中，直接打开就会出现乱码，因为此时日文系统的ANSI编码代表的是JIS编码，而保存的编码格式是GB2312编码。</p>
+  </li>
+  <li>
+    <p><strong>Unicode编码:</strong> 上述中的ANSI编码方式得到的字符编码，由于其编码规范都具有区域性，因此，可能会出现，同一个字符使用不同编码方式时，出现不同编码值；同一个编码值在不同的编码方式中，代表的字符也不同。因此Unicode编码出现了，它<strong>统一了字符编码规范</strong>，使得<strong>字符和编码值实现一一对应</strong>的关系。</p>
+  </li>
+</ol>
+
+<h4 id="2-unicode与utf-8utf-16之间的关系">2. Unicode与UTF-8，UTF-16之间的关系</h4>
+<h5 id="utf-8utf-16出现的原因">UTF-8，UTF-16出现的原因</h5>
+<p>根据上面提到的Unicode已经满足了人们的同意编码的要求，但是为什么还会出现UTF-8和UTF-16这两种编码方式呢？</p>
+
+<p><strong>主要原因：直接使用Unicode编码的效率不高</strong>，比如UCS-4(Unicode的标准之一)规定用4个字节存储一个符号，那么每个英文字母前都必然有三个字节是0，这对<strong>存储和传输来说都很耗资源</strong>。</p>
+
+<p>因此，<strong>UTF-8和UTF-16对于Unicode来说，就是提供了额外的编码方式。用特定的编码规则来解决Unicode编码的效率问题</strong>。</p>
+
+<h5 id="utf-8utf-16如何解决效率问题">UTF-8，UTF-16如何解决效率问题</h5>
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-c4240792a2b5e33d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UTF-8不同字符对应编码值" /></p>
+
+<p>由上图可知，一个英文字符占用1个字节，一个中文字符占用3个字节，一个表情（特殊字符）占用四个字节。</p>
+
+<p>可以看出，<strong>UTF-8根据不同的字符类型，采用不同的字节进行存储</strong>，相对有上面提到的UCS-4来说，对任意字符都采用4字节存储，会更加的高效。</p>
+
+<p><strong>对于UTF-16编码，在U+0000 - U+FFFF范围类，都固定是使用2个字节进行存储</strong>，因此不管是中文还是因为字符，都是用两个字节。</p>
+
+<h5 id="utf-8utf-16转换规则">UTF-8，UTF-16转换规则</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UTF-8 
+U+ 0000 ~ U+ 007F: 0XXXXXXX
+U+ 0080 ~ U+ 07FF: 110XXXXX 10XXXXXX 
+U+ 0800 ~ U+ FFFF: 1110XXXX 10XXXXXX 10XXXXXX 
+U+10000 ~ U+10FFFF: 11110XXX 10XXXXXX 10XXXXXX 10XXXXXX
+
+UTF-16 
+U+0000 - U+FFFF         xxxxxxxx xxxxxxxx
+U+10000 - U+10FFFF   110110xx xxxxxxxx 110111xx xxxxxxxx
+</code></pre></div></div>
+<p>如，‘我’的Unicode编码为6211，如果采用UTF-8编码，该编码落在U+ 0800 ~ U+ FFFF范围内，因此其转换方式为
+<img src="http://upload-images.jianshu.io/upload_images/5796375-095e2028925de8ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Unicode转化为UTF-8" /></p>
+
+<h5 id="utf-8utf-16使用场景">UTF-8，UTF-16使用场景</h5>
+<ol>
+  <li>UTF-8是目前互联网上最常用的一种编码格式。</li>
+  <li>UTF-8的优势在于，其英文字符只需要1个字节来表示，但是中文字符却需要3个字节。</li>
+  <li>UTF-16的优势在于，其中文字符只需要2个字节来表示，但是英文字符也需要2个字节。</li>
+</ol>
+
+<p>因此，如果文本中，主要是中文字符，则使用UTF-16；主要使用英文字符，则使用UTF-8。当然也要适当考虑第一条，即通用性。</p>
+
+<h4 id="3-字符编码常见问题">3. 字符编码常见问题</h4>
+<h5 id="乱码问题">乱码问题</h5>
+<p>正常情况下，主要由于文本的编码方面出现问题：</p>
+<ol>
+  <li>
+    <p>使用ANSI编码进行存储
+如上面提到的，在不同语言的操作系统中，打开使用ANSI编码保存的文本时，就会出现保存和打开时的编码方式不一致，如果在中文系统中保存为ANSI编码，那么在日文操作系统中，直接打开就会出现乱码，因为此时日文系统的ANSI编码代表的是JIS编码，而保存的编码格式是GB2312编码。</p>
+  </li>
+  <li>
+    <p>本地编辑器设置打开的编码方式不正确
+每个文本编辑器中都可以设置文本的编码格式。如sublime中文本文件默认的编码格式即为‘utf-8’，如果文本保存的格式为GBK，使用sublime打开时，默认使用uft-8格式，这就导致中文出现乱码。</p>
+  </li>
+</ol>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-4e8e77b6087f8f3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sublime中设置默认编码格式" /></p>
+
+<p>在sublime中，默认不会显示文本的字符编码，需要手动修改配置文件，菜单Perference → Settings – User，修改用户配置，覆盖默认配置。</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-0dad4167ac5bbcf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sulime中默认不展示编码格式" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-792b94dfd2f9b4f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在用户配置中进行配置" /></p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/5796375-c5bc65d6b6c6b3b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="最终显示效果" /></p>
+
+<h5 id="windows中文件文件编辑器的问题">windows中文件文件编辑器的问题</h5>
+<p><strong>千万不要使用Windows自带的记事本编辑任何文本文件</strong>。原因是Microsoft开发记事本的团队使用了一个非常弱智的行为来保存UTF-8编码的文件，他们自作聪明地在 <strong>每个文件开头添加了0xefbbbf（十六进制）的字符</strong>，你会遇到很多不可思议的问题，比如，网页第一行可能会显示一个“?”，明明正确的程序一编译就报语法错误，等等，都是由记事本的弱智行为带来的。建议你下载Notepad++代替记事本，不但功能强大，而且免费！记得把Notepad++的默认编码设置为UTF-8 without BOM即可。</p>
+
+<h5 id="网络传输中文件字符编码问题">网络传输中文件字符编码问题</h5>
+<p>下面针对一个最简单的HTML文件进行讲解：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"gbk"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	welcome to Beijing! 欢迎来到北京！😊😊😊
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http.createServer(function(req, res) {
+	let content = fs.readFileSync('./test.html', 'utf-8');
+	res.setHeader('Content-Type', 'text/html;')
+	res.write(content);
+
+	res.end();
+})
+</code></pre></div></div>
+<p>此时，如果我们使用utf-8编码保存HTML文件，然后我们在服务器中，使用utf-8编码形式读取文件。但是此时，我们访问服务器，获取的html页面却得到了乱码。
+<img src="http://upload-images.jianshu.io/upload_images/5796375-80207207e4d54956.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="访问页面出现乱码" /></p>
+
+<p>这是为什么呢？</p>
+
+<p>仔细观察，页面头部的meta标签。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;meta charset="gbk"&gt;
+</code></pre></div></div>
+<p>这个标签，告诉浏览器，这个html字符编码是<strong>gbk编码</strong>，因此<strong>浏览器就会使用gbk编码的方式识别字符</strong>，因此会出现乱码。</p>
+
+<p>但是，如果你在<strong>响应头中，设置charset=utf-8’</strong>，则可以解决这个问题。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>res.setHeader('Content-Type', 'text/html;charset=utf-8')
+</code></pre></div></div>
+<p>此时，浏览器就会<strong>忽略<meta charset="gbk" />标签，使用响应头中标识的字符集</strong>，浏览器页面也会正常展示。
+<img src="http://upload-images.jianshu.io/upload_images/5796375-1a8145851309f29b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="页面正常展示" /></p>
+
+<h4 id="4-相关资料链接">4. 相关资料链接</h4>
+<p><a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/8446880?fr=aladdin#2">各种字符编码介绍</a></p>
+
+<p><a href="https://fed.renren.com/2017/11/11/text-encode/">文字编码那些事儿</a></p>
+
+<p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001373962845513aefd77a99f4145f0a2c7a7ca057e7570000">Windows记事本问题</a></p>
+
+<p><a href="https://www.zhihu.com/question/46824501/answer/114973574">sublime设置字符编码</a></p>
+
+
+  </div><a class="u-url" href="/javascript/2018/10/05/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

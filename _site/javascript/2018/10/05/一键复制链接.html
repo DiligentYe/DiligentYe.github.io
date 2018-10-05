@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>一键复制链接 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="一键复制链接" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="目标 实现点击按钮, 复制当前页面的URL" />
+<meta property="og:description" content="目标 实现点击按钮, 复制当前页面的URL" />
+<link rel="canonical" href="http://localhost:4000/javascript/2018/10/05/%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6%E9%93%BE%E6%8E%A5.html" />
+<meta property="og:url" content="http://localhost:4000/javascript/2018/10/05/%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6%E9%93%BE%E6%8E%A5.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/javascript/2018/10/05/%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6%E9%93%BE%E6%8E%A5.html","headline":"一键复制链接","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"目标 实现点击按钮, 复制当前页面的URL","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/javascript/2018/10/05/%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6%E9%93%BE%E6%8E%A5.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">一键复制链接</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h4 id="目标">目标</h4>
+<p>实现点击按钮, 复制当前页面的URL</p>
+
+<h4 id="实现方法">实现方法</h4>
+<p>利用input元素的setSelectionRange方法，以及document的execCommand方法。
+首先，将input 元素的value值设置为当前页面的的url，（该input元素通常不应该显示在页面上，可以通过visibility: hidden样式将其设置不可见）；
+然后，利用setSelectionRange选中input元素对应范围的内容（此此处，选中内容即为当前页面的url）；
+最后，调用execCommand方法，调用copy命令，即可将选中的url复制到剪切板中。</p>
+
+<p><strong>注意：</strong></p>
+<ol>
+  <li>调用setSelectionRange选择input元素中内容时，当前操作的input标签必须属于被选中的状态，即focus，因此需要先调用focus方法；</li>
+</ol>
+
+<h4 id="具体实现完整代码">具体实现完整代码</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;p&gt;</span>点击复制后在右边textarea CTRL+V看一下<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"inputText"</span> <span class="na">value=</span><span class="s">"测试文本"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">id=</span><span class="s">"btn"</span> <span class="na">value=</span><span class="s">"复制"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+      <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'btn'</span><span class="p">);</span>
+      <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+          <span class="kd">var</span> <span class="nx">inputText</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'inputText'</span><span class="p">);</span>
+          <span class="nx">inputText</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+          <span class="nx">inputText</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+          <span class="nx">inputText</span><span class="p">.</span><span class="nx">setSelectionRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">inputText</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">'copy'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+      <span class="p">});</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h4 id="相关文档">相关文档</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand">execCommand相关文档</a></p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setSelectionRange">setSelectionRange相关文档</a></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-e798598c829cb902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p><a href="https://caniuse.com/#search=setSelectionexecCommandRange">CanIUse-setSelectionRange</a></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-1d5819e963c0b217.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p><a href="https://caniuse.com/#search=execCommand">CanIUse-execCommand</a></p>
+
+  </div><a class="u-url" href="/javascript/2018/10/05/%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6%E9%93%BE%E6%8E%A5.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>

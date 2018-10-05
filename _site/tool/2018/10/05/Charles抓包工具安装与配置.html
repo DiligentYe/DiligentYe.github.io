@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Charles抓包工具安装与配置 | Test</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Charles抓包工具安装与配置" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="在实际开发中，我们需要时常抓取线上的请求及数据，甚至是请求的html文档，js，css等静态文件来进行调试。在这里，我使用charles来进行以上操作。但是呢，charles需要进行一系列配置才能达到我们的要求。下面将介绍一个mac下详细且完整的安装和配置过程。" />
+<meta property="og:description" content="在实际开发中，我们需要时常抓取线上的请求及数据，甚至是请求的html文档，js，css等静态文件来进行调试。在这里，我使用charles来进行以上操作。但是呢，charles需要进行一系列配置才能达到我们的要求。下面将介绍一个mac下详细且完整的安装和配置过程。" />
+<link rel="canonical" href="http://localhost:4000/tool/2018/10/05/Charles%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html" />
+<meta property="og:url" content="http://localhost:4000/tool/2018/10/05/Charles%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html" />
+<meta property="og:site_name" content="Test" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-05T20:20:29+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/tool/2018/10/05/Charles%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html","headline":"Charles抓包工具安装与配置","dateModified":"2018-10-05T20:20:29+08:00","datePublished":"2018-10-05T20:20:29+08:00","description":"在实际开发中，我们需要时常抓取线上的请求及数据，甚至是请求的html文档，js，css等静态文件来进行调试。在这里，我使用charles来进行以上操作。但是呢，charles需要进行一系列配置才能达到我们的要求。下面将介绍一个mac下详细且完整的安装和配置过程。","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/tool/2018/10/05/Charles%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Test" /><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Test</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+        <div class="trigger"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Charles抓包工具安装与配置</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-10-05T20:20:29+08:00" itemprop="datePublished">Oct 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>在实际开发中，我们需要时常抓取线上的请求及数据，甚至是请求的html文档，js，css等静态文件来进行调试。在这里，我使用charles来进行以上操作。但是呢，charles需要进行一系列配置才能达到我们的要求。下面将介绍一个mac下详细且完整的安装和配置过程。</p>
+
+<h4 id="1-下载和安装charles">1. 下载和安装Charles</h4>
+<p>在<a href="https://www.charlesproxy.com/">Charles官网</a>下载，然后按照正常流程安装即可。</p>
+
+<h4 id="2-破解charles">2. 破解Charles</h4>
+<p>详细步骤：<a href="http://charles.iiilab.com/">点击这里</a></p>
+
+<h4 id="3-配置手机">3. 配置手机</h4>
+<p>手机连接同局域网，设置网络的代理服务器为该电脑的ip地址，端口为8888，此时你已经可以抓取http请求了</p>
+
+<h4 id="4-配置抓包https请求">4. 配置抓包HTTPS请求</h4>
+<ol>
+  <li>安装Charles HTTPS证书
+路径：help–&gt;SSLProxying–&gt; Install Charles Root Ceriticate</li>
+</ol>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-65a8d281dfb2bda0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<ol>
+  <li>点击Install Charles Root Ceriticate后，会直接跳到钥匙串中。但是呢，这个证书并不能信任，此时我们可以点击Charles Proxy CA，就会弹出第二张图，在信任中选择“始终信任”即可。</li>
+</ol>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-a1451ec74e76c853.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-8d2f0fc8c0abe0f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>当然也并不是所有人都能很顺利的执行第一步，即在申请发布证书时双击安装出现不能修改System Roots钥匙串问题：</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-6fd6c16e6cc5967d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>此时，你只需点击左下角的小图标，点击进入“登录”标签，然后通过help–&gt;SSLProxying–&gt; Save Charles Root Ceriticate… 然后将保存的文件直接拖到面板中即可。然后设置信任。。。</p>
+
+<p>当电脑上已经安装好证书之后，我们将需要调试的手机设置该电脑为代理服务器，端口为8888</p>
+
+<ol>
+  <li>手机端下载证书
+通过help–&gt;SSLProxying–&gt; Install Charles Root Ceriticate on a Mobile Device or Remote Browser，可以获得下载提示，将Charles设置为http代理，然后访问chl.pro/ssl（网址可能会不同，因此一定要通过点击获得的提示信息）。</li>
+</ol>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-19eb57d37db7c585.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<ol>
+  <li>设置代理https端口
+通过Proxy–&gt;SSL Proxying Settings</li>
+</ol>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-57c0ad1fc2845655.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-9533b69e86548be9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" /></p>
+
+<p>这样一来，你就可以通过Charles作为代理服务器，获取想要的信息。</p>
+
+<p><strong>7. 最重要一点：手机信任charles证书</strong>
+通过第5步手机端下载证书，在苹果手机上默认是不信任的（安卓手机未确认），因此需要在手机端中信任安装的证书。</p>
+
+<p>设置–&gt;通用–&gt; 关于本机–&gt;证书信任设置</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-76bd48139b0465d3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/310" alt="" /></p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/5796375-a25aaa9a1e3066c6.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/310" alt="" /></p>
+
+<p>最后说一点，重要的一点，如果你使用charles抓https请求，一定要链接以太网口，不能连接无线网。</p>
+
+
+  </div><a class="u-url" href="/tool/2018/10/05/Charles%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html" hidden></a>
+</article>
+
+        <div id="gitalk-container"></div>
+      </div>
+    </main>
+
+    <!--<footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Test</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Test</li><li><a class="u-email" href="mailto:yeyingping26@gmail.com">yeyingping26@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/DiligentYe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Good Good Study, Day Day Up!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+-->
+    <script>
+    const gitalk = new Gitalk({
+      clientID: '4567a3c4249760e03c45',
+      clientSecret: 'ac62226f3a5245f0edb4e548af2f970490679e53', 
+      id: window.location.pathname, 
+      repo: 'DiligentYe.github.io', 
+      owner: 'DiligentYe', 
+      admin: 'DiligentYe', 
+      distractionFreeMode: true,
+    })
+
+    gitalk.render('gitalk-container')
+    </script>
+  </body>
+
+</html>
